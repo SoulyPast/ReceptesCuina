@@ -1,0 +1,30 @@
+<div class="card text-center container general">
+  <br>
+    <h1>Nova recepta</h1>
+    <br>
+    <form>
+      <div class="form-group">
+        <label>Nom Recepta</label>
+        <input type="text" [(ngModel)]="recepta.nom_recepta" class="form-control invent" name="nom_recepta" id="nom">
+      </div>
+
+      <div class="form-group">
+        <label>Ingredients</label>
+        <textarea type="text" class="form-control invent" [(ngModel)]="recepta.ingredients" name="ingredients" id="ingere"></textarea>
+      </div>
+
+      <div class="form-group">
+          <label>Descripcio</label>
+          <textarea type="text" class="form-control invent" [(ngModel)]="recepta.descripcio" name="descripcio" id="desc"></textarea>
+        </div>
+        <div class="form-group">
+          <label>IdRecepta: {{id}}</label>
+          
+        </div>
+
+      <button  type="submit" class="btn btn-success" (click)="crearRecepta()" id="submit">Submit</button>
+     
+    </form>
+    <br>
+
+</div>

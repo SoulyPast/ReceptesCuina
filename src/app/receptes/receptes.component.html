@@ -1,0 +1,96 @@
+
+<div class="form-group">
+  <input type="text" class="form-control mr-sm-2" placeholder="Busca una recepta" name="buscadorReceptes"
+  [(ngModel)]='buscadorReceptes'>
+</div>
+<div>
+  <select class="form-control" (change)="onChange($event.target.value)" [(ngModel)]='selector' name="selector">
+    <option>Tria una opció</option>
+    <option>Nom Ascendent</option>
+    <option>Nom Descendent</option>
+    <option>Ingredients IAscendent</option>
+    <option>Ingredients IDescendent</option>
+  </select> 
+  <br>
+</div>
+<div class="receptes">
+<div *ngFor="let r of recept  | selector:selec | pipes:buscadorReceptes">
+    <h1>{{r.nom_recepta}}</h1>
+    <h6>Ingredients</h6>
+    <p>{{ r.ingredients }}</p>
+    <ul class="nav nav-pills mb-3" id="pills-tab{{r.id_recepta}}" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="pills-home-tab{{r.id_recepta}}" data-toggle="pill" href="#pills-home{{r.id_recepta}}" role="tab" aria-controls="pills-home" aria-selected="true">Detalls</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-profile-tab{{r.id_recepta}}" data-toggle="pill" href="#pills-profile{{r.id_recepta}}" role="tab" aria-controls="pills-profile" aria-selected="false">Comentaris</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab{{r.id_recepta}}" data-toggle="pill" href="#pills-contact{{r.id_recepta}}" role="tab" aria-controls="pills-contact" aria-selected="false">Posa Comentari</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-home{{r.id_recepta}}" role="tabpanel" aria-labelledby="pills-home-tab">
+        <h6>Descripcio</h6>
+        <p>{{ r.descripcio }}</p>
+      </div>
+      <div class="tab-pane fade" id="pills-profile{{r.id_recepta}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <h3 style="margin-top: 10px;">Comentaris:</h3>
+        <ng-container *ngFor="let c of coment ">
+         <div *ngIf = "r.id_recepta == c.id_recepta">
+          <div class="media mt-3">
+            <div class="media-body">
+                <h5>{{c.num_estrelles}}  estrelles</h5>
+                <p>{{c.nom_comentari}}</p>
+                <p style="margin-top:5px; font-size: 14px; color: grey">-- {{c.date}}</p>
+            </div>
+        <hr>
+        </div>
+            </div>
+           
+        </ng-container>
+      </div>
+      <div class="tab-pane fade" id="pills-contact{{r.id_recepta}}" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <h3>Enviar comentari:</h3>
+
+<form>
+
+
+  <div class="form-group">
+    <label >Selecciona el id de recepte:</label>
+    <select  aria-label="ngSelected demo" class="form-control nice" [(ngModel)]="comenta.id_recepta" name="id_recepta"  required>
+      <option ng-selected="selected">{{r.id_recepta}}</option>
+    </select>
+  </div>
+ 
+
+
+
+  <div class="form-group{{r.id_recepta}}">
+    <label >Selecciona el numero de estrelles:</label>
+    <select  class="form-control "  [(ngModel)]="comenta.num_estrelles" name="num_estrelles"  required>
+      <option>5</option>
+      <option>4</option>
+      <option>3</option>
+      <option>2</option>
+      <option>1</option>
+      <option>0</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Comentari:</label>
+    <textarea type="text" class="form-control" placeholder="Dona'ns la teva opinio"  [(ngModel)]="comenta.nom_comentari" name="nom_comentari"  required></textarea>
+  </div>
+  <div class="col-md-12 text-center">
+  <button type="submit" class="btn btn-success center-block" (click)="crearComentari()">Comenta</button>
+  </div>
+</form>
+      </div>
+    </div>
+<br>
+<div class="progress" style="height: 1px;">
+  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+</div>
